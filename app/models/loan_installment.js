@@ -10,6 +10,6 @@ module.exports = {
     },
     associations: [
         { target: 'User', type: 'belongsTo', params: { foreignKey: 'user_id' } },
-        { target: 'LoanSettings', type: 'belongsTo', params: { foreignKey: 'loan_id' } },
+        { target: 'Loan', type: 'belongsTo', params: { foreignKey: 'loan_id' } },
     ],
 };
