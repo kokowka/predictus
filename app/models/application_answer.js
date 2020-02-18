@@ -7,8 +7,6 @@ module.exports = {
         id:             { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
         user_id:        { type: Sequelize.BIGINT },
         text:           { type: Sequelize.STRING, allowNull: false },
-        date_created:   { type: Sequelize.BIGINT },
-        date_updated:   { type: Sequelize.BIGINT },
 
     },
     associations: [

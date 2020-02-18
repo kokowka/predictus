@@ -9,8 +9,6 @@ module.exports = {
         lng:            { type: Sequelize.FLOAT },
         alt:            { type: Sequelize.FLOAT },
         last_update:    { type: Sequelize.BIGINT },
-        date_created:   { type: Sequelize.BIGINT },
-        date_updated:   { type: Sequelize.BIGINT },
 
     },
     associations: [

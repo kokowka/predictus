@@ -11,8 +11,6 @@ module.exports = {
         amount_to:              { type: Sequelize.FLOAT },
         interest_rate:          { type: Sequelize.FLOAT },
         fine:                   { type: Sequelize.FLOAT },
-        date_created:           { type: Sequelize.BIGINT },
-        date_updated:           { type: Sequelize.BIGINT },
 
     },
 };

@@ -6,8 +6,6 @@ module.exports = {
 
         id:                     { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
         amount:                 { type: Sequelize.FLOAT },
-        date_created:           { type: Sequelize.BIGINT },
-        date_updated:           { type: Sequelize.BIGINT },
 
     },
     associations: [

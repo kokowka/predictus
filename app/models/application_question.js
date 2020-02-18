@@ -11,8 +11,6 @@ module.exports = {
         country:                { type: Sequelize.STRING },
         type:                   { type: Sequelize.STRING, defaultValue: question_constants.type.DEFAULT},
         answer:                 { type: Sequelize.JSON, defaultValue: {} },
-        date_created:           { type: Sequelize.BIGINT },
-        date_updated:           { type: Sequelize.BIGINT },
 
     },
 };

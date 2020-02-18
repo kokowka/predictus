@@ -1,5 +1,8 @@
 module.exports = {
 
+    rel_db_version: 1,
+    migrations_path: 'app/migrations',
+
     db: {
         rel: {
             host: 'localhost',

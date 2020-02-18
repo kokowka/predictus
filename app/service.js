@@ -15,6 +15,10 @@ const LoanPayment = require('./models/loan_payment');
 const LoanSettings = require('./models/loan_settings');
 const SMS = require('./models/sms');
 const UploadedFile = require('./models/uploaded_file');
+const Migrations = require('./models/migrations');
+
+const MigrationWorkerProvider = require('../workers/migration_worker');
+const config = require('./config');
 
 class PredictusHttpServer extends Application {
     constructor(config) {
@@ -25,6 +29,7 @@ class PredictusHttpServer extends Application {
     }
 
     async start(opts = {}) {
+
         const options = this._config.options || {};
 
         this.initDependencies(opts);
@@ -33,6 +38,9 @@ class PredictusHttpServer extends Application {
         this.initContainer();
         this.mapRoutes();
         this.initRest(options);
+
+        const migration_worker = MigrationWorkerProvider(this._container.get('Migrations'), config);
+        await migration_worker.run(config.rel_db_version);
 
         return this;
     }
@@ -56,6 +64,7 @@ class PredictusHttpServer extends Application {
         this.addDependency('LoanSettings', LoanSettings, { groups: ['sequelize'] }, 'static');
         this.addDependency('SMS', SMS, { groups: ['sequelize'] }, 'static');
         this.addDependency('UploadedFile', UploadedFile, { groups: ['sequelize'] }, 'static');
+        this.addDependency('Migrations', Migrations, { groups: ['sequelize'] }, 'static');
 
     }
 

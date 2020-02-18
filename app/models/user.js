@@ -17,8 +17,6 @@ module.exports = {
         permission_granted:     { type: Sequelize.INTEGER, defaultValue: user_constants.PERMISSION_DENIED },
         otp:                    { type: Sequelize.STRING, allowNull: false },
         otp_expired_at:         { type: Sequelize.BIGINT },
-        date_created:           { type: Sequelize.BIGINT },
-        date_updated:           { type: Sequelize.BIGINT },
 
     },
 };
