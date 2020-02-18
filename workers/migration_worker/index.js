@@ -5,7 +5,6 @@ const path = require('path');
 
 const promise_helper = require('../../app/framework-nodejs/core/promise-helper');
 const MigrationTaskManager = require('./MigrationTaskManager');
-const init_models = require('../../app/helpers/init_models');
 const Logger = require('../../app/framework-nodejs/core/Logger/Logger');
 
 function MigrationWorkerProvider(Migrations, config) {
@@ -92,7 +91,6 @@ class MigrationWorker {
                 await this._processMigration(migration_tasks.getTasks());
             });
         } catch(err) {
-            this._migration_failure = true;
             this._log.error('Error during migration processing', err);
             await this._fallbackMigrations( migrations.slice(0, curr_migration_index).reverse() );
         }
