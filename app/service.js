@@ -1,6 +1,12 @@
 const Application = require('./framework-nodejs/core');
 const Logger = require('./framework-nodejs/core/Logger/Logger');
 
+const Validator = require('./validation-rules');
+
+const AuthController = require('./controllers/auth/auth');
+
+const UserMC = require('./model-controllers/user');
+
 const User = require('./models/user');
 const ApplicationAnswer = require('./models/application_answer');
 const ApplicationGeolocations = require('./models/application_geolocations');
@@ -16,6 +22,8 @@ const LoanSettings = require('./models/loan_settings');
 const SMS = require('./models/sms');
 const UploadedFile = require('./models/uploaded_file');
 const Migrations = require('./models/migrations');
+
+const AuthRouter = require('./routes/auth.router');
 
 const MigrationWorkerProvider = require('../workers/migration_worker');
 const config = require('./config');
@@ -48,6 +56,13 @@ class PredictusHttpServer extends Application {
     initDependencies(opts = {}) {
 
         this.addDependency('config', this._config, {}, 'static');
+        this.addDependency('Validator', Validator);
+
+        // Routers
+        this.addDependency('AuthRouter', AuthRouter);
+
+        // Controllers
+        this.addDependency('AuthController', AuthController);
 
         // Models
         this.addDependency('User', User, { groups: ['sequelize'] }, 'static');
@@ -66,10 +81,12 @@ class PredictusHttpServer extends Application {
         this.addDependency('UploadedFile', UploadedFile, { groups: ['sequelize'] }, 'static');
         this.addDependency('Migrations', Migrations, { groups: ['sequelize'] }, 'static');
 
+        // Model-Controllers
+        this.addDependency('UserMC', UserMC);
     }
 
     mapRoutes(){
-
+        this.addRoutes('/auth', this._container.get('AuthRouter').initRouter());
     }
 }
 

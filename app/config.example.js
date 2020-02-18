@@ -26,5 +26,10 @@ module.exports = {
             host : 'localhost' ,
             port : 3000 ,
         } ,
+    },
+    sms: {
+        is_test: true,
+        SMS_LENGTH: 5,
+        expired_time: 3 * 60 * 1000,
     }
 };
