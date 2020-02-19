@@ -32,5 +32,10 @@ module.exports = {
         is_test: config.sms.is_test !== undefined ? config.sms.is_test: true,
         SMS_LENGTH: config.sms.SMS_LENGTH !== undefined ? config.sms.SMS_LENGTH: 5,
         expired_time: config.sms.expired_time !== undefined ? config.sms.expired_time: 3 * 60 * 1000,
+    },
+
+    app_data: {
+        ios: config.app_data.ios !== undefined ? config.app_data.ios: '0.0.1',
+        android: config.app_data.android !== undefined ? config.app_data.android:'0.0.1'
     }
 };

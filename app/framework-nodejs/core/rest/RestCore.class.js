@@ -3,6 +3,7 @@ const path = require('path');
 const Logger = require('../Logger/Logger');
 const {trackRequest} = require('../../../middlewares');
 const bodyParser = require('body-parser');
+const response = require('../../../helpers/response');
 
 class RestCore {
     constructor() {
@@ -36,8 +37,9 @@ class RestCore {
             }
             this._initRoutes();
             this._app.use((err, req, res, next) => {
-                res.status(err.status).send({error: {status: err.status, message: err.message}});
                 delete err.stack;
+                this._log.error(err);
+                res.status(err.status).send(response.sendError(err.status, err.message));
                 next(err);
             });
             

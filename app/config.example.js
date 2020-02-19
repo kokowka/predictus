@@ -31,5 +31,9 @@ module.exports = {
         is_test: true,
         SMS_LENGTH: 5,
         expired_time: 3 * 60 * 1000,
+    },
+    app_data: {
+        ios: '0.0.1',
+        android: '0.0.1'
     }
 };

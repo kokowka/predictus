@@ -3,6 +3,7 @@ const smsHelper = require('../helpers/smsHelper');
 const sessionHelper = require('../helpers/sessionHelper');
 const status_codes = require('../constants/status_codes');
 const sessionConstants = require('../constants/session');
+const response = require('../helpers/response');
 const { ForbiddenError, NotFoundError } = require('../framework-nodejs/core/rest.errors');
 
 function authControllerProvider(UserMC, SessionMC, Validator, config) {
@@ -57,7 +58,8 @@ class AuthController {
 
     async _signPhone(req, res, next) {
         try {
-            const {phone_number} = this._Validator[this._CONTROLLER_NAME].sendSms.run(req.body);
+
+            const {phone_number} = this._Validator[this._CONTROLLER_NAME].sendSms.run(req.body.data);
 
             const now_ms = new Date().valueOf();
 
@@ -71,7 +73,7 @@ class AuthController {
                 await this._UserMC.update({otp, otp_expired_at}, user.get('id'));
             }
 
-            res.status(status_codes.OK).send({status: true});
+            res.status(status_codes.OK).send(response.sendSuccess({status: true}));
             next();
         } catch (err) {
             next(err);
@@ -93,7 +95,7 @@ class AuthController {
 
     async _signCode(req, res, next) {
         try{
-            const {phone_number, code} = this._Validator[this._CONTROLLER_NAME].sendSms.run(req.body);
+            const {phone_number, code} = this._Validator[this._CONTROLLER_NAME].sendSms.run(req.body.data);
             const now_ms = new Date().valueOf();
 
             const user = await this._UserMC.find({phone_number});
@@ -124,7 +126,7 @@ class AuthController {
                 expires_at: session_expires_at,
             });
 
-            res.status(status_codes.OK).send({session_token, refresh_token});
+            res.status(status_codes.OK).send(response.sendSuccess({session_token, refresh_token}));
 
         } catch (err) {
             next(err);
@@ -145,7 +147,7 @@ class AuthController {
      */
     async _refreshToken(req, res, next) {
         try {
-            const { session_token, refresh_token } = this._Validator[this._CONTROLLER_NAME].refreshToken.run(req.body);
+            const { session_token, refresh_token } = this._Validator[this._CONTROLLER_NAME].refreshToken.run(req.body.data);
 
             const session = await this._SessionMC.find({session_token, refresh_token});
 
@@ -171,7 +173,7 @@ class AuthController {
                 expires_at: session_expires_at,
             });
 
-            res.status(status_codes.OK).send({session_token: new_session_token, refresh_token: new_refresh_token});
+            res.status(status_codes.OK).send(response.sendSuccess({session_token: new_session_token, refresh_token: new_refresh_token}));
 
         } catch (err) {
             next(err);
