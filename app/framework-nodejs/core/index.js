@@ -67,12 +67,20 @@ module.exports = class Application {
         return this._restCore.server;
     }
 
+    get addModelToRequest() {
+        return this._restCore.addModelToRequest.bind(this._restCore);
+    }
+
     get addRestCustomizer() {
         return this._restCore.addRestCustomizer.bind(this._restCore);
     }
 
     get addRoutes() {
         return this._restCore.addRoutes.bind(this._restCore);
+    }
+
+    get addMiddleware() {
+        return this._restCore.addMiddleware.bind(this._restCore);
     }
 
     get clearDb() {

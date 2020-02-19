@@ -24,8 +24,8 @@ class AuthRouter {
         );
 
         router.post(
-          '/refreshToken',
-          this._AuthController.refreshToken,
+            '/refreshToken',
+            this._AuthController.refreshToken,
         );
 
         return router;

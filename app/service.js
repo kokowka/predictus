@@ -31,6 +31,8 @@ const AuthRouter = require('./routes/auth.router');
 const MigrationWorkerProvider = require('../workers/migration_worker');
 const config = require('./defaultConfig');
 
+const {trackRequest, checkIsAuth} = require('./middlewares');
+
 class PredictusHttpServer extends Application {
     constructor(config) {
         super();
@@ -47,6 +49,9 @@ class PredictusHttpServer extends Application {
         await this.initService(this._config, options);
 
         this.initContainer();
+        this.addModelToRequest('Session', this._container.get('Session'));
+        this.addMiddleware(trackRequest);
+        this.addMiddleware(checkIsAuth);
         this.mapRoutes();
         this.initRest(options);
 
@@ -93,6 +98,7 @@ class PredictusHttpServer extends Application {
 
     mapRoutes(){
         this.addRoutes('/auth', this._container.get('AuthRouter').initRouter());
+
     }
 }
 

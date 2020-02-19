@@ -1,13 +1,14 @@
 // WARNING!!!!! This module should not be imported directly
 const path = require('path');
 const Logger = require('../Logger/Logger');
-const {trackRequest} = require('../../../middlewares');
 const bodyParser = require('body-parser');
 const response = require('../../../helpers/response');
 
 class RestCore {
     constructor() {
         this._routes = [];
+        this._middlewares = [];
+        this._models = [];
 
         this._log = new Logger('REST_CORE');
         this._log.level = 'all';
@@ -31,7 +32,6 @@ class RestCore {
             this._app = express();
 
             this._initMiddleware(express, cors, helmet);
-            this._app.use(trackRequest);
             if ( this._restCustomizer ) {
                 this._restCustomizer(this._app);
             }
@@ -53,8 +53,16 @@ class RestCore {
         }
     }
 
+    addModelToRequest(name, model) {
+        this._models.push({name: name, model: model});
+    }
+
     addRestCustomizer(customizerFunc) {
         this._restCustomizer = customizerFunc;
+    }
+
+    addMiddleware(func) {
+        this._middlewares.push(func);
     }
 
     addRoutes(url, router) {
@@ -71,6 +79,17 @@ class RestCore {
         this._app.use(express.urlencoded({extended: true}));
         this._app.use(express.json({limit: '5mb'}));
         this._app.use(express.static(path.join(__dirname, 'public')));
+
+        for(const model of this._models) {
+            this._app.use((req, res, next) => {
+                req[model.name] = model.model;
+                next();
+            });
+        }
+
+        for(const middleware of this._middlewares) {
+            this._app.use(middleware);
+        }
     }
 
     _initRoutes() {
