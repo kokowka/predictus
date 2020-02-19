@@ -14,8 +14,18 @@ class AuthRouter {
         const router = express.Router();
 
         router.post(
-            '/sendSms',
-            this._AuthController.sendSms,
+            '/signPhone',
+            this._AuthController.signPhone,
+        );
+
+        router.post(
+            '/signCode',
+            this._AuthController.signCode,
+        );
+
+        router.post(
+          '/refreshToken',
+          this._AuthController.refreshToken,
         );
 
         return router;

@@ -13,9 +13,9 @@ class UserModelController {
         this._log = new Logger('User Model-Controller', config.logger);
     }
 
-    async find(phone_number){
+    async find(data = {}){
         return this._User.findOne({
-            where: phone_number
+            where: data
         })
     }
 

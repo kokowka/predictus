@@ -1,6 +1,8 @@
 // WARNING!!!!! This module should not be imported directly
 const path = require('path');
 const Logger = require('../Logger/Logger');
+const {trackRequest} = require('../../../middlewares');
+const bodyParser = require('body-parser');
 
 class RestCore {
     constructor() {
@@ -28,12 +30,13 @@ class RestCore {
             this._app = express();
 
             this._initMiddleware(express, cors, helmet);
+            this._app.use(trackRequest);
             if ( this._restCustomizer ) {
                 this._restCustomizer(this._app);
             }
             this._initRoutes();
             this._app.use((err, req, res, next) => {
-                this._log.error(err);
+                res.status(err.status).send({error: {status: err.status, message: err.message}});
                 delete err.stack;
                 next(err);
             });
@@ -61,6 +64,7 @@ class RestCore {
             this._app.use(cors());
         }
 
+        this._app.use(bodyParser.json());
         this._app.use(helmet());
         this._app.use(express.urlencoded({extended: true}));
         this._app.use(express.json({limit: '5mb'}));

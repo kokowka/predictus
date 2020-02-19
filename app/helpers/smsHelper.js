@@ -1,4 +1,4 @@
-const SMS = require('../config').sms;
+const SMS = require('../defaultConfig').sms;
 
 module.exports = {
     generateSmsCode,

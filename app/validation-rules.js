@@ -14,7 +14,10 @@ class ValidationRules {
             .withRequired('phone_number', Rule.isString());
         this.Auth.singPhone = new RuleContainer()
             .withRequired('phone_number', Rule.isString())
-            .withRequired('code', Rule.isString())
+            .withRequired('code', Rule.isString());
+        this.Auth.refreshToken = new RuleContainer()
+            .withRequired('refresh_token', Rule.isString())
+            .withRequired('session_token', Rule.isString());
 
     }
 }

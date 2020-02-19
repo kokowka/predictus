@@ -3,9 +3,10 @@ const Logger = require('./framework-nodejs/core/Logger/Logger');
 
 const Validator = require('./validation-rules');
 
-const AuthController = require('./controllers/auth/auth');
+const AuthController = require('./controllers/auth');
 
 const UserMC = require('./model-controllers/user');
+const SessionMC = require('./model-controllers/session');
 
 const User = require('./models/user');
 const ApplicationAnswer = require('./models/application_answer');
@@ -22,11 +23,13 @@ const LoanSettings = require('./models/loan_settings');
 const SMS = require('./models/sms');
 const UploadedFile = require('./models/uploaded_file');
 const Migrations = require('./models/migrations');
+const Session = require('./models/session');
+const Admin = require('./models/admin');
 
 const AuthRouter = require('./routes/auth.router');
 
 const MigrationWorkerProvider = require('../workers/migration_worker');
-const config = require('./config');
+const config = require('./defaultConfig');
 
 class PredictusHttpServer extends Application {
     constructor(config) {
@@ -80,9 +83,12 @@ class PredictusHttpServer extends Application {
         this.addDependency('SMS', SMS, { groups: ['sequelize'] }, 'static');
         this.addDependency('UploadedFile', UploadedFile, { groups: ['sequelize'] }, 'static');
         this.addDependency('Migrations', Migrations, { groups: ['sequelize'] }, 'static');
+        this.addDependency('Session', Session, { groups: ['sequelize'] }, 'static');
+        this.addDependency('Admin', Admin, { groups: ['sequelize'] }, 'static');
 
         // Model-Controllers
         this.addDependency('UserMC', UserMC);
+        this.addDependency('SessionMC', SessionMC);
     }
 
     mapRoutes(){
