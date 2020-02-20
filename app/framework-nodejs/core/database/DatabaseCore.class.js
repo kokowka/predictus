@@ -191,7 +191,8 @@ class DatabaseCore {
             return insts;
         }, {});
 
-        Object.entries(models_to_associate).forEach( ([model]) => {
+        // eslint-disable-next-line no-unused-vars
+        Object.entries(models_to_associate).forEach( ([model_name, model]) => {
             const associations = model.associations;
             if ( !associations ) {
                 return;
