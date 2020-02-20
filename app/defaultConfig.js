@@ -19,14 +19,14 @@ module.exports = {
 
     logger: {
         level: config.logger.level !== undefined ? config.logger.level : 'all',
-        off: config.logger.off !== undefined ?  config.logger.off : false,
+        off: config.logger.off !== undefined ? config.logger.off : false,
     },
 
     options: {
         REST : {
-            host : config.options.REST.host !== undefined ? config.options.REST.host : 'localhost' ,
-            port : config.options.REST.port !== undefined ? config.options.REST.port : 3000 ,
-        } ,
+            host : config.options.REST.host !== undefined ? config.options.REST.host : 'localhost',
+            port : config.options.REST.port !== undefined ? config.options.REST.port : 3000,
+        },
     },
     sms: {
         is_test: config.sms.is_test !== undefined ? config.sms.is_test: true,
@@ -36,6 +36,6 @@ module.exports = {
 
     app_data: {
         ios: config.app_data.ios !== undefined ? config.app_data.ios: '0.0.1',
-        android: config.app_data.android !== undefined ? config.app_data.android:'0.0.1'
-    }
+        android: config.app_data.android !== undefined ? config.app_data.android:'0.0.1',
+    },
 };

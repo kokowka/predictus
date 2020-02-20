@@ -34,7 +34,7 @@ class MigrationWorker {
         const last_migration = (await this._target_db.query(`SELECT * FROM "Migrations" WHERE version = ${target_version}`))[0][0];
         if ( !last_migration ) {
             await this._Migrations.create({
-               version: target_version,
+                version: target_version,
             });
 
             const migrations = await this._getMigrations();

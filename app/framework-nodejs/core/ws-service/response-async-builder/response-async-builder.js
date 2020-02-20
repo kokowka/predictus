@@ -12,7 +12,7 @@ class ResponseAsyncBuilder {
         new RuleContainer()
             .withOptional('mobile_app_data', Rule.isObject(new RuleContainer()
                 .withRequired('ios', Rule.isNumber())
-                .withRequired('android', Rule.isNumber())
+                .withRequired('android', Rule.isNumber()),
             ))
             .withRequired('errors', Rule.isObject())
             .run(params);

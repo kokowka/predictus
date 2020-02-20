@@ -13,9 +13,9 @@ class SessionModelController {
     }
 
     async find(data = {}){
-        return this._Session.findOne({
-            where: data
-        })
+        return await this._Session.findOne({
+            where: data,
+        });
     }
 
     async create(data = {}) {
@@ -27,7 +27,7 @@ class SessionModelController {
     async cleanTokens(user_id) {
         const sessions = await this._Session.findAll({where : {user_id: user_id, status: status.ACTIVE}});
         for(const session of sessions) {
-            await session.update({status: status.INACTIVE})
+            await session.update({status: status.INACTIVE});
         }
     }
 }

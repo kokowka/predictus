@@ -14,9 +14,9 @@ class UserModelController {
     }
 
     async find(data = {}){
-        return this._User.findOne({
-            where: data
-        })
+        return await this._User.findOne({
+            where: data,
+        });
     }
 
     async create(data = {}){

@@ -50,7 +50,7 @@ class NotificationWorker {
                     msg.userId,
                     msg.notification_token,
                     msg.device_type,
-                    msg.voip_token
+                    msg.voip_token,
                 );
             } catch (err) {
                 this._log.error('Error while tried to send push notification', err);

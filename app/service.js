@@ -34,6 +34,7 @@ const config = require('./defaultConfig');
 const {trackRequest, checkIsAuth} = require('./middlewares');
 
 class PredictusHttpServer extends Application {
+    // eslint-disable-next-line no-shadow
     constructor(config) {
         super();
 
@@ -61,7 +62,7 @@ class PredictusHttpServer extends Application {
         return this;
     }
 
-    initDependencies(opts = {}) {
+    initDependencies() {
 
         this.addDependency('config', this._config, {}, 'static');
         this.addDependency('Validator', Validator);

@@ -23,9 +23,9 @@ module.exports = {
 
     options: {
         REST : {
-            host : 'localhost' ,
-            port : 3000 ,
-        } ,
+            host : 'localhost',
+            port : 3000,
+        },
     },
     sms: {
         is_test: true,
@@ -34,6 +34,6 @@ module.exports = {
     },
     app_data: {
         ios: '0.0.1',
-        android: '0.0.1'
-    }
+        android: '0.0.1',
+    },
 };

@@ -21,6 +21,7 @@ class RestCore {
     initApp(options) {
         if ( options.REST ) {
             const rest_options = options.REST;
+            // eslint-disable-next-line no-prototype-builtins
             if ( !rest_options.hasOwnProperty('cors') ) {
                 rest_options.cors = true;
             }

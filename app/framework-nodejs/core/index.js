@@ -1,8 +1,6 @@
 'use strict';
 
-const path = require('path');
 
-const promise_helper = require('./promise-helper');
 const { Container } = require('./Dic/index');
 const Logger = require('./Logger/Logger');
 const RestCore = require('./rest/RestCore.class');

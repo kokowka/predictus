@@ -89,8 +89,8 @@ class RuleContainer {
         errors = errors.filter(e => e);
 
         if ( errors.length && !isElement ) {
-            throw new ValidationError(
-                JSON.stringify(errors).replace(/"/g, '\'') // eslint-disable-line no-magic-numbers
+            throw new ValidationError(JSON.stringify(errors).replace(/"/g, '\''), // eslint-disable-line no-magic-numbers
+                // eslint-disable-next-line function-paren-newline
             );
         } else if ( isElement ) {
             return errors;
@@ -120,6 +120,7 @@ class RuleContainer {
         }
         for ( let i = 0; i < key_chunks.length; i++ ) {
             
+            // eslint-disable-next-line no-prototype-builtins
             if ( !currVal.hasOwnProperty(key_chunks[i]) ) {
                 const field = key_chunks.slice(0, i+1).join('.'); // eslint-disable-line no-magic-numbers
                 return { field, err: `Field ${field} does not exist` };
@@ -128,7 +129,7 @@ class RuleContainer {
             currVal = currVal[ key_chunks[i] ];
         }
 
-        return { value: currVal,  };
+        return { value: currVal };
     }
 }
 

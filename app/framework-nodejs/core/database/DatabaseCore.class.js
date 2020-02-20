@@ -191,7 +191,7 @@ class DatabaseCore {
             return insts;
         }, {});
 
-        Object.entries(models_to_associate).forEach( ([model_name, model]) => {
+        Object.entries(models_to_associate).forEach( ([model]) => {
             const associations = model.associations;
             if ( !associations ) {
                 return;

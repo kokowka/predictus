@@ -9,7 +9,7 @@ const {UnauthorizedError} = require('../framework-nodejs/core/rest.errors');
 
 
 function trackRequest(req, res, next) {
-    log.info(`[${req.method}]`,req.originalUrl, JSON.stringify(req.body));
+    log.info(`[${req.method}]`, req.originalUrl, JSON.stringify(req.body));
     req.body.data = req.body.data ? req.body.data : {};
     req.body.auth = req.body.auth ? req.body.auth : {};
     next();
@@ -32,5 +32,5 @@ async function checkIsAuth(req, res, next) {
 
 module.exports = {
     trackRequest,
-    checkIsAuth
+    checkIsAuth,
 };

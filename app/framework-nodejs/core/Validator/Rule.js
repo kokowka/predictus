@@ -20,12 +20,10 @@ class Rule {
         }
 
         return function (key, value, errors) {
-            errors.push(
-                self._isTypeOf(key, value, 'string') 
-                || ( regexp && self._isMatchRegexp(key, value, regexp) )
-                || ( oneOf && self._isOneOf(key, value, oneOf) )
-                || ( notEmpty && self._isNotEmpty(key, value) )
-            );
+            errors.push(self._isTypeOf(key, value, 'string')
+                || regexp && self._isMatchRegexp(key, value, regexp) 
+                || oneOf && self._isOneOf(key, value, oneOf) 
+                || notEmpty && self._isNotEmpty(key, value));
         };
     }
 
@@ -59,12 +57,10 @@ class Rule {
         }
 
         return function (key, value, errors) {
-            errors.push(
-                self._isTypeOf(key, value, 'number')
-                || ( integer && self._isInteger(key, value) )
-                || ( range && self._inRange(key, value, range) )
-                || ( oneOf && self._isOneOf(key, value, oneOf) )
-            );
+            errors.push(self._isTypeOf(key, value, 'number')
+                || integer && self._isInteger(key, value) 
+                || range && self._inRange(key, value, range) 
+                || oneOf && self._isOneOf(key, value, oneOf));
         };
     }
 
@@ -90,6 +86,7 @@ class Rule {
         const { each, throwOnEmpty } = options;
         if ( each && !(each instanceof RuleContainer) ) {
             throw new Error('Option each should be RuleContainer');
+            // eslint-disable-next-line no-prototype-builtins
         } else if ( options.hasOwnProperty('throwOnEmpty') && typeof throwOnEmpty !== 'boolean' ) {
             throw new Error('Option throwOnEmpty should be a boolean');
         }
@@ -106,7 +103,8 @@ class Rule {
             if (each) {
                 const elem_errs = value.reduce((errs, elem, i) => {
                     const errs_chunk = each.run(elem, true);
-                    errs_chunk.forEach(err => (err.field = `${key}[${i}].${err.field}`));
+                    // eslint-disable-next-line no-return-assign
+                    errs_chunk.forEach(err => err.field = `${key}[${i}].${err.field}`);
                     return errs.concat(errs_chunk);
                 }, []);
                 if (elem_errs.length) {
@@ -179,7 +177,7 @@ class Rule {
     }
 
     static _isInteger(key, value) {
-        if ( (Math.floor(value) - value) !== 0 ) { // eslint-disable-line no-magic-numbers
+        if ( Math.floor(value) - value !== 0 ) { // eslint-disable-line no-magic-numbers
             return { field: key, err: `Value ${value} is not integer` };
         }
     }

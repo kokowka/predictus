@@ -10,6 +10,7 @@ module.exports = {
         password_salt:              { type: Sequelize.STRING, required: false },
         reset_password_token:       { type: Sequelize.STRING, required: false },
         reset_password_expires_at:  { type: Sequelize.BIGINT, required: false },
+        role:                       { type: Sequelize.STRING, required: false },
 
     },
 };

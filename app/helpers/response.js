@@ -32,7 +32,7 @@ module.exports = {
                 ios: config.app_data.ios,
                 android: config.app_data.android,
             },
-            data: {}
+            data: {},
         };
-    }
+    },
 };

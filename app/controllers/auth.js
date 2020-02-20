@@ -40,7 +40,7 @@ class AuthController {
     }
 
     get signCode() {
-       return this._signCode.bind(this);
+        return this._signCode.bind(this);
     }
 
     get refreshToken() {

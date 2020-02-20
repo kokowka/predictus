@@ -46,7 +46,7 @@ class AbstractWsController {
             async session_info => {
                 const is_send = await this.emitToSession(user_id, session_info.session_token, message, chat_id, false);
                 is_emit_send = is_emit_send || is_send;
-            }
+            },
         );
 
         return is_emit_send;
@@ -65,6 +65,7 @@ class AbstractWsController {
     async emitToSession(user_id, session_token, message, options = {}) {
         let is_emit_send = false;
         const chat_id = options.chat_id;
+        // eslint-disable-next-line no-prototype-builtins
         const send_on_error = options.hasOwnProperty('send_on_error') ? options.send_on_error : true;
 
         if (!user_id) {

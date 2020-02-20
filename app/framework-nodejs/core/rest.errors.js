@@ -137,7 +137,7 @@ const GoneError = class GoneError extends RestError {
     constructor(message) {
         super(GoneError, message, GONE_ERROR_STATUS);
     }
-}
+};
 
 /**
  * This class was built for 500 (Internal Server) errors creation. This is the default error code
