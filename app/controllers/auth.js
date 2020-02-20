@@ -1,4 +1,3 @@
-const Logger = require('../framework-nodejs/core/Logger/Logger');
 const smsHelper = require('../helpers/smsHelper');
 const sessionHelper = require('../helpers/sessionHelper');
 const status_codes = require('../constants/status_codes');
@@ -32,7 +31,6 @@ class AuthController {
         this._UserMC = UserMC;
         this._SessionMC = SessionMC;
 
-        this._log = new Logger('Auth Controller', config.logger);
     }
 
     get signPhone() {

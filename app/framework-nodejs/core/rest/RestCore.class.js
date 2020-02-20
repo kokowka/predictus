@@ -40,11 +40,13 @@ class RestCore {
             this._app.use((err, req, res, next) => {
                 delete err.stack;
                 this._log.error(err);
-                res.status(err.status).send(response.sendError(err.status, err.message));
-                next(err);
+                res.status(err.status).csend(response.sendError(err.status, err.message));
+                next();
             });
             
+            // eslint-disable-next-line no-prototype-builtins
             this._restPort = rest_options.hasOwnProperty('port') ? rest_options.port : this._DEFAULT_PORT;
+            // eslint-disable-next-line no-prototype-builtins
             this._restHost = rest_options.hasOwnProperty('host') ? rest_options.host : this._DEFAULT_HOST;
             this._server = this._app.listen(this._restPort, this._restHost, () => {
                 this._log.trace(`Application started listening on port ${this._restPort}`);

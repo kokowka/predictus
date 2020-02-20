@@ -4,6 +4,7 @@ const Logger = require('./framework-nodejs/core/Logger/Logger');
 const Validator = require('./validation-rules');
 
 const AuthController = require('./controllers/auth');
+const UserController = require('./controllers/user');
 
 const UserMC = require('./model-controllers/user');
 const SessionMC = require('./model-controllers/session');
@@ -27,6 +28,7 @@ const Session = require('./models/session');
 const Admin = require('./models/admin');
 
 const AuthRouter = require('./routes/auth.router');
+const UserRouter = require('./routes/user.router');
 
 const MigrationWorkerProvider = require('../workers/migration_worker');
 const config = require('./defaultConfig');
@@ -34,7 +36,6 @@ const config = require('./defaultConfig');
 const {trackRequest, checkIsAuth} = require('./middlewares');
 
 class PredictusHttpServer extends Application {
-    // eslint-disable-next-line no-shadow
     constructor(config) {
         super();
 
@@ -69,9 +70,11 @@ class PredictusHttpServer extends Application {
 
         // Routers
         this.addDependency('AuthRouter', AuthRouter);
+        this.addDependency('UserRouter', UserRouter);
 
         // Controllers
         this.addDependency('AuthController', AuthController);
+        this.addDependency('UserController', UserController);
 
         // Models
         this.addDependency('User', User, { groups: ['sequelize'] }, 'static');
@@ -99,7 +102,7 @@ class PredictusHttpServer extends Application {
 
     mapRoutes(){
         this.addRoutes('/auth', this._container.get('AuthRouter').initRouter());
-
+        this.addRoutes('/user', this._container.get('UserRouter').initRouter());
     }
 }
 

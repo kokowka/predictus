@@ -10,7 +10,7 @@ module.exports = {
         last_name:              { type: Sequelize.STRING },
         first_name:             { type: Sequelize.STRING },
         gender:                 { type: Sequelize.STRING },
-        birthDate:              { type: Sequelize.BIGINT },
+        birth_date:              { type: Sequelize.BIGINT },
         country:                { type: Sequelize.STRING },
         status:                 { type: Sequelize.INTEGER, defaultValue: user_constants.status.INACTIVE },
         last_permission_update: { type: Sequelize.BIGINT },

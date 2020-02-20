@@ -40,7 +40,6 @@
     "radix":                            "error",
     "require-await":                    "error",
     "curly":                            ["error", "multi-line"],
-    "no-shadow":                        "error",
     "no-shadow-restricted-names":       "error",
     "handle-callback-err":              "error",
     "no-buffer-constructor":            "error",

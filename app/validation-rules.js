@@ -19,6 +19,15 @@ class ValidationRules {
             .withRequired('refresh_token', Rule.isString())
             .withRequired('session_token', Rule.isString());
 
+        this.User = {};
+        this.User.setUserInfo = new RuleContainer()
+            .withRequired('first_name', Rule.isString())
+            .withRequired('last_name', Rule.isString())
+            .withRequired('gender', Rule.isString())
+            .withRequired('country', Rule.isString())
+            .withRequired('birth_date', Rule.isNumber());
+
+
     }
 }
 
