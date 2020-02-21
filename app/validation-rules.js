@@ -1,4 +1,4 @@
-const {Rule, RuleContainer} = require('../../framework-nodejs/core/Validator');
+const {Rule, RuleContainer} = require('./framework-nodejs/core/Validator');
 
 function validationRulesProvider() {
     return new ValidationRules();
