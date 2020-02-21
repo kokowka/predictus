@@ -107,7 +107,7 @@ class AuthController {
             }
 
             if(now_ms >= user.get('otp_expired_at')) {
-                throw new ForbiddenError('Token expired');
+                throw new ForbiddenError('Code expired');
             }
 
             const session_expires_at = now_ms + sessionConstants.expiry_time;
