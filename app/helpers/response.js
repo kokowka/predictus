@@ -1,10 +1,9 @@
 const config = require('../defaultConfig');
 
 module.exports = {
-    sendSuccess: (data, request_id) => {
+    sendSuccess: (data) => {
         const respObj = {
             result: true,
-            request_id: request_id,
             error: {
                 msg: '',
                 code: 0,

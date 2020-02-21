@@ -26,7 +26,10 @@ class ValidationRules {
             .withRequired('gender', Rule.isString())
             .withRequired('country', Rule.isString())
             .withRequired('birth_date', Rule.isNumber());
-
+        this.User.addContacts = new RuleContainer()
+            .withRequired('contacts', Rule.isArray());
+        this.User.addSms = new RuleContainer()
+            .withRequired('sms', Rule.isArray());
 
     }
 }

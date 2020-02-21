@@ -8,6 +8,8 @@ const UserController = require('./controllers/user');
 
 const UserMC = require('./model-controllers/user');
 const SessionMC = require('./model-controllers/session');
+const ContactMC = require('./model-controllers/contact');
+const SmsMC = require('./model-controllers/sms');
 
 const User = require('./models/user');
 const ApplicationAnswer = require('./models/application_answer');
@@ -34,7 +36,7 @@ const MigrationWorkerProvider = require('../workers/migration_worker');
 const config = require('./defaultConfig');
 const {NOTIFICATION_QUEUE} = require('../app/constants/rabbit');
 
-const {trackRequest, checkIsAuth} = require('./middlewares');
+const {trackRequest, checkIsAuth, checkIsExistRoute} = require('./middlewares');
 
 class PredictusHttpServer extends Application {
     constructor(config) {
@@ -54,6 +56,7 @@ class PredictusHttpServer extends Application {
         this.initContainer();
         this.addModelToRequest('Session', this._container.get('Session'));
         this.addMiddleware(trackRequest);
+        this.addMiddleware(checkIsExistRoute);
         this.addMiddleware(checkIsAuth);
         this.mapRoutes();
         this.initRest(options);
@@ -100,6 +103,8 @@ class PredictusHttpServer extends Application {
         // Model-Controllers
         this.addDependency('UserMC', UserMC);
         this.addDependency('SessionMC', SessionMC);
+        this.addDependency('ContactMC', ContactMC);
+        this.addDependency('SmsMC', SmsMC);
     }
 
     mapRoutes(){
