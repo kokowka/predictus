@@ -23,7 +23,7 @@ async function checkIsAuth(req, res, next) {
 
         const session = await req.Session.findOne({where: req.body.auth});
 
-        if(!session || session.get('status') === sessionConstants.status.INACTIVE || (new Date().valueOf() + 6 * 24 * 60 * 60 * 1000) >= session.get('expires_at')) {
+        if(!session || session.get('status') === sessionConstants.status.INACTIVE || (new Date().valueOf()) >= session.get('expires_at')) {
             next(new UnauthorizedError('Not authorize'));
         }
     }
