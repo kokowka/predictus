@@ -40,7 +40,7 @@ class RestCore {
             this._app.use((err, req, res, next) => {
                 delete err.stack;
                 this._log.error(err);
-                res.status(err.status).csend(response.sendError(err.status, err.message));
+                res.status(err.status).send(response.sendError(err.status, err.message));
                 next();
             });
             
