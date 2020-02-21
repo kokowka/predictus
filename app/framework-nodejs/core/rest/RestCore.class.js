@@ -39,7 +39,7 @@ class RestCore {
             this._initRoutes();
             this._app.use((err, req, res, next) => {
                 delete err.stack;
-                this._log.error(err);
+                this._log.error(JSON.stringify(err));
                 res.status(err.status).send(response.sendError(err.status, err.message));
                 next();
             });
