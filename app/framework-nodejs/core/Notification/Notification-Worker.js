@@ -37,7 +37,7 @@ class NotificationWorker {
                 return;
             }
     
-            if (!msg.userId || !msg.notificationMessage || !msg.device_type || (!msg.notification_token && !msg.voip_token)) {
+            if (!msg.userId || !msg.notificationMessage || (!msg.notification_token && !msg.voip_token)) {
                 this._log.warn('Invalid message format', msg);
                 ch.ack(message);
                 return;
@@ -49,7 +49,6 @@ class NotificationWorker {
                     msg.notificationMessage,
                     msg.userId,
                     msg.notification_token,
-                    msg.device_type,
                     msg.voip_token,
                 );
             } catch (err) {

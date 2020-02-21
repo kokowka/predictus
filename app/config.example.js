@@ -1,6 +1,10 @@
+const MESSAGE = 'message';
+const NEW_CHAT = 'new_chat';
+const RECEIVE_CALL = 'receive_call';
+
 module.exports = {
 
-    rel_db_version: 1,
+    rel_db_version: -1,
     migrations_path: 'app/migrations',
 
     db: {
@@ -26,6 +30,20 @@ module.exports = {
             host : 'localhost',
             port : 3000,
         },
+        rabbit: {
+            connect_url: 'amqp://localhost',
+        },
+        notifications: {
+            data_types: {
+                MESSAGE,
+                NEW_CHAT,
+                RECEIVE_CALL,
+            },
+            fcm: {
+                url: 'https://fcm.googleapis.com/fcm/send',
+                server_key: '',
+            },
+        },
     },
     sms: {
         is_test: true,
@@ -35,5 +53,9 @@ module.exports = {
     app_data: {
         ios: '0.0.1',
         android: '0.0.1',
+    },
+    spreedly: {
+        environmentKey: '2izyFMOxgDQQgvVVekRDFq0oEpg',
+        accessSecret: 'W6Brk01hKcwbyPDZlqBo3LN5cKjoDqPlpRsogXxb631Ll4RZXZh5QhpSoBphCL1o',
     },
 };

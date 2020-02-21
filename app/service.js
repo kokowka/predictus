@@ -32,6 +32,7 @@ const UserRouter = require('./routes/user.router');
 
 const MigrationWorkerProvider = require('../workers/migration_worker');
 const config = require('./defaultConfig');
+const {NOTIFICATION_QUEUE} = require('../app/constants/rabbit');
 
 const {trackRequest, checkIsAuth} = require('./middlewares');
 
@@ -56,6 +57,7 @@ class PredictusHttpServer extends Application {
         this.addMiddleware(checkIsAuth);
         this.mapRoutes();
         this.initRest(options);
+        await this.initListeners();
 
         const migration_worker = MigrationWorkerProvider(this._container.get('Migrations'), config);
         await migration_worker.run(config.rel_db_version);
@@ -103,6 +105,11 @@ class PredictusHttpServer extends Application {
     mapRoutes(){
         this.addRoutes('/auth', this._container.get('AuthRouter').initRouter());
         this.addRoutes('/user', this._container.get('UserRouter').initRouter());
+    }
+
+    async initListeners() {
+        await this.addRabbitChannel(NOTIFICATION_QUEUE);
+        this.RabbitMQ.RabbitChannels[NOTIFICATION_QUEUE].prefetch(5);
     }
 }
 

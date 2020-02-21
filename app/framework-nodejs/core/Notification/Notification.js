@@ -20,30 +20,24 @@ class Notification {
         }
     }
 
-    async sendMessage(data, user_id, user_token, device_type, voip_token) {
+    async sendMessage(data, user_id, user_token, voip_token) {
 
-        switch(device_type) {
-            case 'android': {
-                return this._sendMessageFcm( await this._createFcmMessage(data, user_id, user_token) )
-                    .then((response, body) => {
-                        if ( response.statusCode >= 400 ) { // eslint-disable-line no-magic-numbers
-                            this._log.error(response, body);
-                            return Promise.reject(new Error(`Received ${response.statusCode} status ` + JSON.stringify(response)));
-                        }
 
-                        return body;
-                    })
-                    .catch(err => {
-                        this._log.error('Notification sending error', err);
-                        return Promise.reject(err);
-                    });
-            }
-            case 'ios': {
-                return this._sendMessageApple(data, user_id, user_token, voip_token);
-            }
-            default: 
-                return Promise.reject(new Error('Invalid device type'));
-        }
+        return this._sendMessageFcm( await this._createFcmMessage(data, user_id, user_token) )
+            .then((response, body) => {
+                if ( response.statusCode >= 400 ) { // eslint-disable-line no-magic-numbers
+                    this._log.error(response, body);
+                    return Promise.reject(new Error(`Received ${response.statusCode} status ` + JSON.stringify(response)));
+                }
+
+                return body;
+            })
+            .catch(err => {
+                this._log.error('Notification sending error', err);
+                return Promise.reject(err);
+            });
+
+
     }
 
     createChatData(chat_id, sender_id, chat_type, picture, chat_name, status_sender = 0, status_my = 0) { // eslint-disable-line no-magic-numbers
@@ -91,46 +85,6 @@ class Notification {
             },
             body: message,
         });
-    }
-
-    async _sendMessageApple(data, user_id, user_token, voip_token) { // eslint-disable-line require-await
-        const apn_config = this._notification_config.apn;
-        apn_config.production = true;
-
-        const provider = new this._apn.Provider();
-        const notification = new this._apn.Notification();
-        const is_voip = data.type === 'receive_call';
-
-        if ( is_voip && !voip_token ) {
-            return Promise.reject(new Error('Voip token not set'));
-        }
-
-        const { chat_type, chat_name, text } = data.data;
-        const DEFAULT_TEXT = 'You have a new message';
-
-        notification['sound'] = 'default';
-        notification['alert'] = {
-            'title': chat_name,
-            'body': ( chat_type === 'secret' || !text ) ? DEFAULT_TEXT : text,
-        };
-        notification['payload'] = {
-            'data': is_voip ? data.data : JSON.stringify(data.data),
-            'type': data.type,
-            'userId': user_id,
-        };
-        notification['topic'] = is_voip ? this._notification_config.voip_topic : this._notification_config.non_voip_topic;
-
-        return provider.send(notification, is_voip ? voip_token : user_token)
-            .then(result => {
-                this._log.info('Apn notification send');
-                provider.shutdown();
-                return result;
-            })
-            .catch(err => {
-                this._log.error('Apn notification sending caused error', err);
-                provider.shutdown();
-                return Promise.reject(new Error(err));
-            });
     }
 
     _createFcmMessage(data, user_id, user_token) {

@@ -42,9 +42,9 @@ module.exports = class Application {
         }
         if ( options.notifications ) {
 
-            const { request, apn } = this._requireOptPackages('request', 'apn');
+            const { request } = this._requireOptPackages('request');
             const Notification = require('./Notification/Notification');
-            Notification._injectLibs({ request, apn });
+            Notification._injectLibs({ request });
             this.Notification = Notification;
 
             this.NotificationWorker = require('./Notification/Notification-Worker');

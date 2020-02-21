@@ -1,5 +1,9 @@
 const config = require('./config');
 
+const MESSAGE = 'message';
+const NEW_CHAT = 'new_chat';
+const RECEIVE_CALL = 'receive_call';
+
 module.exports = {
     rel_db_version: config.rel_db_version !== undefined ? config.rel_db_version: -1,
     migrations_path: config.migrations_path !== undefined ? config.migrations_path: 'app/migrations',
@@ -26,6 +30,20 @@ module.exports = {
         REST : {
             host : config.options && config.options.REST.host !== undefined ? config.options.REST.host : 'localhost',
             port : config.options && config.options.REST.port !== undefined ? config.options.REST.port : 3000,
+        },
+        rabbit: {
+            connect_url: config.options && config.options.REST.rabbit !== undefined ? config.options.REST.rabbit : 'amqp://localhost',
+        },
+        notifications: {
+            data_types: {
+                MESSAGE,
+                NEW_CHAT,
+                RECEIVE_CALL,
+            },
+            fcm: {
+                url: 'https://fcm.googleapis.com/fcm/send',
+                server_key: config.options && config.options.notifications.fcm.server_key !== undefined ? config.options.notifications.fcm.server_key : '',
+            },
         },
     },
     sms: {
