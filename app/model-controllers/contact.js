@@ -20,7 +20,9 @@ class ContactModelController {
     }
 
     async find(data = {}) {
-        return await this._Contact.findOne(data);
+        return await this._Contact.findOne({
+            where: data,
+        });
     }
 }
 

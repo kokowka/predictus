@@ -5,18 +5,27 @@ const Validator = require('./validation-rules');
 
 const AuthController = require('./controllers/auth');
 const UserController = require('./controllers/user');
+const LoanController = require('./controllers/loan');
 
 const UserMC = require('./model-controllers/user');
 const SessionMC = require('./model-controllers/session');
 const ContactMC = require('./model-controllers/contact');
 const SmsMC = require('./model-controllers/sms');
+const InstalledAppMC = require('./model-controllers/installed_app');
+const ApplicationGeolocationsMC = require('./model-controllers/application_geolocations');
+const LoanMC = require('./model-controllers/loan');
+const LoanPaymentMC = require('./model-controllers/loan_payment');
+const LoanFinePaymentMC = require('./model-controllers/loan_fine_payment');
+const LoanInstallmentPaymentMC = require('./model-controllers/loan_installment_payment');
+const LoanSettingsMC = require('./model-controllers/loan_settings');
+
 
 const User = require('./models/user');
 const ApplicationAnswer = require('./models/application_answer');
 const ApplicationGeolocations = require('./models/application_geolocations');
 const ApplicationQuestion = require('./models/application_question');
 const Contact = require('./models/contact');
-const FinePayment = require('./models/fine_payment');
+const LoanFinePayment = require('./models/loan_fine_payment');
 const InstalledApp = require('./models/installed_app');
 const Loan = require('./models/loan');
 const LoanInstallment = require('./models/loan_installment');
@@ -28,9 +37,12 @@ const UploadedFile = require('./models/uploaded_file');
 const Migrations = require('./models/migrations');
 const Session = require('./models/session');
 const Admin = require('./models/admin');
+const Country = require('./models/country');
+const Currency = require('./models/currency');
 
 const AuthRouter = require('./routes/auth.router');
 const UserRouter = require('./routes/user.router');
+const LoanRouter = require('./routes/loan.router');
 
 const MigrationWorkerProvider = require('../workers/migration_worker');
 const config = require('./defaultConfig');
@@ -76,10 +88,12 @@ class PredictusHttpServer extends Application {
         // Routers
         this.addDependency('AuthRouter', AuthRouter);
         this.addDependency('UserRouter', UserRouter);
+        this.addDependency('LoanRouter', LoanRouter);
 
         // Controllers
         this.addDependency('AuthController', AuthController);
         this.addDependency('UserController', UserController);
+        this.addDependency('LoanController', LoanController);
 
         // Models
         this.addDependency('User', User, { groups: ['sequelize'] }, 'static');
@@ -87,7 +101,7 @@ class PredictusHttpServer extends Application {
         this.addDependency('ApplicationGeolocations', ApplicationGeolocations, { groups: ['sequelize'] }, 'static');
         this.addDependency('ApplicationQuestion', ApplicationQuestion, { groups: ['sequelize'] }, 'static');
         this.addDependency('Contact', Contact, { groups: ['sequelize'] }, 'static');
-        this.addDependency('FinePayment', FinePayment, { groups: ['sequelize'] }, 'static');
+        this.addDependency('LoanFinePayment', LoanFinePayment, { groups: ['sequelize'] }, 'static');
         this.addDependency('InstalledApp', InstalledApp, { groups: ['sequelize'] }, 'static');
         this.addDependency('Loan', Loan, { groups: ['sequelize'] }, 'static');
         this.addDependency('LoanInstallment', LoanInstallment, { groups: ['sequelize'] }, 'static');
@@ -99,17 +113,27 @@ class PredictusHttpServer extends Application {
         this.addDependency('Migrations', Migrations, { groups: ['sequelize'] }, 'static');
         this.addDependency('Session', Session, { groups: ['sequelize'] }, 'static');
         this.addDependency('Admin', Admin, { groups: ['sequelize'] }, 'static');
+        this.addDependency('Country', Country, { groups: ['sequelize'] }, 'static');
+        this.addDependency('Currency', Currency, { groups: ['sequelize'] }, 'static');
 
         // Model-Controllers
         this.addDependency('UserMC', UserMC);
         this.addDependency('SessionMC', SessionMC);
         this.addDependency('ContactMC', ContactMC);
         this.addDependency('SmsMC', SmsMC);
+        this.addDependency('InstalledAppMC', InstalledAppMC);
+        this.addDependency('ApplicationGeolocationsMC', ApplicationGeolocationsMC);
+        this.addDependency('LoanMC', LoanMC);
+        this.addDependency('LoanFinePaymentMC', LoanFinePaymentMC);
+        this.addDependency('LoanPaymentMC', LoanPaymentMC);
+        this.addDependency('LoanInstallmentPaymentMC', LoanInstallmentPaymentMC);
+        this.addDependency('LoanSettingsMC', LoanSettingsMC);
     }
 
     mapRoutes(){
         this.addRoutes('/auth', this._container.get('AuthRouter').initRouter());
         this.addRoutes('/user', this._container.get('UserRouter').initRouter());
+        this.addRoutes('/loan', this._container.get('LoanRouter').initRouter());
     }
 
     async initListeners() {

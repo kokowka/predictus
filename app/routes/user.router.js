@@ -17,8 +17,8 @@ class UserRouter {
             '/setUserInfo',
             this._UserController.setUserInfo,
         );
-        router.get(
-            '/getUserInfo/:id',
+        router.post(
+            '/getUserInfo',
             this._UserController.getUserInfo,
         );
         router.post(
@@ -29,14 +29,14 @@ class UserRouter {
             '/addSms',
             this._UserController.addSms,
         );
-        /*router.post(
-            '/user/addInstalledApplications',
+        router.post(
+            '/addInstalledApplications',
             this._UserController.addInstalledApplications,
         );
         router.post(
-            '/user/updateLocation',
+            '/updateLocation',
             this._UserController.updateLocation,
-        );*/
+        );
 
         return router;
     }

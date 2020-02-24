@@ -55,7 +55,7 @@ module.exports = {
         android: '0.0.1',
     },
     spreedly: {
-        environmentKey: '2izyFMOxgDQQgvVVekRDFq0oEpg',
-        accessSecret: 'W6Brk01hKcwbyPDZlqBo3LN5cKjoDqPlpRsogXxb631Ll4RZXZh5QhpSoBphCL1o',
+        environmentKey: '',
+        accessSecret: '',
     },
 };

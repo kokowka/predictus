@@ -18,4 +18,8 @@ module.exports = {
         expires_at:             { type: Sequelize.BIGINT },
 
     },
+
+    associations: [
+        { target: 'Country', type: 'belongsTo', params: { foreignKey: 'country_id' } },
+    ],
 };

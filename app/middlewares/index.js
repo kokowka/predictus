@@ -3,7 +3,7 @@ const config = require('../defaultConfig');
 
 const log = new Logger('Predictus Request Info', config.logger);
 
-const {auth_required} = require('../params');
+const {auth_required, routes} = require('../params');
 const sessionConstants = require('../constants/session');
 const {UnauthorizedError, NotFoundError} = require('../framework-nodejs/core/rest.errors');
 
@@ -31,7 +31,7 @@ async function checkIsAuth(req, res, next) {
 }
 
 function checkIsExistRoute(req, res, next) {
-    if(!auth_required.includes(req.originalUrl)) {
+    if(!routes.includes(req.originalUrl)) {
         next(new NotFoundError('Route not found'));
     }
     next();

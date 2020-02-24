@@ -10,14 +10,14 @@ module.exports = {
 
     db: {
         rel: {
-            host: config.db && config.db.rel.host !== undefined ? config.db.rel.host: 'localhost',
-            port: config.db && config.db.rel.port !== undefined ? config.db.rel.port: '5432',
-            username: config.db && config.db.rel.username !== undefined ? config.db.rel.username: 'predictus',
-            password: config.db && config.db.rel.password !== undefined ? config.db.rel.password: 'predictus',
-            database: config.db && config.db.rel.database !== undefined ? config.db.rel.database: 'predictus',
-            dialect: config.db && config.db.rel.dialect !== undefined ? config.db.rel.dialect: 'postgres',
-            logging: config.db && config.db.rel.logging !== undefined ? config.db.rel.logging: false,
-            define: { freezeTableName: config.db.rel.define.freezeTableName !== undefined ? config.db.rel.define.freezeTableName: true }, // disable table names pluralization
+            host: config.db && config.db.rel && config.db.rel.host !== undefined ? config.db.rel.host: 'localhost',
+            port: config.db && config.db.rel && config.db.rel.port !== undefined ? config.db.rel.port: '5432',
+            username: config.db && config.db.rel && config.db.rel.username !== undefined ? config.db.rel.username: 'predictus',
+            password: config.db && config.db.rel && config.db.rel.password !== undefined ? config.db.rel.password: 'predictus',
+            database: config.db && config.db.rel && config.db.rel.database !== undefined ? config.db.rel.database: 'predictus',
+            dialect: config.db && config.db.rel && config.db.rel.dialect !== undefined ? config.db.rel.dialect: 'postgres',
+            logging: config.db && config.db.rel && config.db.rel.logging !== undefined ? config.db.rel.logging: false,
+            define: { freezeTableName: config.db && config.db.rel && config.db.rel.define && config.db.rel.define.freezeTableName !== undefined ? config.db.rel.define.freezeTableName: true }, // disable table names pluralization
         },
     },
 
@@ -28,11 +28,11 @@ module.exports = {
 
     options: {
         REST : {
-            host : config.options && config.options.REST.host !== undefined ? config.options.REST.host : 'localhost',
-            port : config.options && config.options.REST.port !== undefined ? config.options.REST.port : 3000,
+            host : config.options && config.options.REST && config.options.REST.host !== undefined ? config.options.REST.host : 'localhost',
+            port : config.options && config.options.REST && config.options.REST.port !== undefined ? config.options.REST.port : 3000,
         },
         rabbit: {
-            connect_url: config.options && config.options.REST.rabbit !== undefined ? config.options.REST.rabbit : 'amqp://localhost',
+            connect_url: config.options && config.options.REST && config.options.REST.rabbit !== undefined ? config.options.REST.rabbit : 'amqp://localhost',
         },
         notifications: {
             data_types: {
@@ -42,7 +42,7 @@ module.exports = {
             },
             fcm: {
                 url: 'https://fcm.googleapis.com/fcm/send',
-                server_key: config.options && config.options.notifications.fcm.server_key !== undefined ? config.options.notifications.fcm.server_key : '',
+                server_key: config.options && config.options.notifications && config.options.notifications.fcm && config.options.notifications.fcm.server_key !== undefined ? config.options.notifications.fcm.server_key : '',
             },
         },
     },

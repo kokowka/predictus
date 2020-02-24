@@ -24,12 +24,29 @@ class ValidationRules {
             .withRequired('first_name', Rule.isString())
             .withRequired('last_name', Rule.isString())
             .withRequired('gender', Rule.isString())
-            .withRequired('country', Rule.isString())
+            .withRequired('country_id', Rule.isNumber())
             .withRequired('birth_date', Rule.isNumber());
+        this.User.getUserInfo = new RuleContainer()
+            .withRequired('user_id', Rule.isNumber());
         this.User.addContacts = new RuleContainer()
             .withRequired('contacts', Rule.isArray());
         this.User.addSms = new RuleContainer()
             .withRequired('sms', Rule.isArray());
+        this.User.addInstalledApplications = new RuleContainer()
+            .withRequired('apps', Rule.isArray());
+        this.User.updateLocation = new RuleContainer()
+            .withRequired('lat', Rule.isNumber())
+            .withRequired('lng', Rule.isNumber())
+            .withRequired('alt', Rule.isNumber());
+
+        this.Loan = {};
+        this.Loan.createLoan = new RuleContainer()
+            .withRequired('amount', Rule.isNumber())
+            .withRequired('loan_settings_id', Rule.isNumber());
+        this.Loan.getLoanSettings = new RuleContainer()
+            .withRequired('loan_settings_id', Rule.isNumber());
+        this.Loan.getUserLoan = new RuleContainer()
+            .withRequired('loan_id', Rule.isNumber());
 
     }
 }

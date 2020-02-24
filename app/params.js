@@ -4,6 +4,13 @@ module.exports = {
         '/user/getUserInfo',
         '/user/addContacts',
         '/user/addSms',
+        '/user/addInstalledApplications',
+        '/user/updateLocation',
+        '/loan/createLoan',
+        '/loan/getLoanSettings',
+        '/loan/payLoan',
+        '/loan/getUserLoans',
+        '/loan/getUserLoan',
     ],
 
     routes: [
@@ -14,5 +21,12 @@ module.exports = {
         '/user/getUserInfo',
         '/user/addContacts',
         '/user/addSms',
+        '/user/addInstalledApplications',
+        '/user/updateLocation',
+        '/loan/createLoan',
+        '/loan/getLoanSettings',
+        '/loan/payLoan',
+        '/loan/getUserLoans',
+        '/loan/getUserLoan',
     ],
 };

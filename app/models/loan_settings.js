@@ -13,4 +13,8 @@ module.exports = {
         fine:                   { type: Sequelize.FLOAT },
 
     },
+
+    associations: [
+        { target: 'Country', type: 'belongsTo', params: { foreignKey: 'country_id' } },
+    ],
 };

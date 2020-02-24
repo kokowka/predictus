@@ -20,7 +20,9 @@ class SMSModelController {
     }
 
     async find(data = {}) {
-        return await this._SMS.findOne(data);
+        return await this._SMS.findOne({
+            where: data,
+        });
     }
 }
 

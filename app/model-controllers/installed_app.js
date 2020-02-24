@@ -20,7 +20,9 @@ class InstalledAppModelController {
     }
 
     async find(data = {}) {
-        return await this._InstalledApp.findOne(data);
+        return await this._InstalledApp.findOne({
+            where: data,
+        });
     }
 }
 

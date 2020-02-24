@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const loanConstants = require('../constants/loan');
 
 module.exports = {
     model_name: 'Loan',
@@ -6,6 +7,7 @@ module.exports = {
 
         id:                     { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
         amount:                 { type: Sequelize.FLOAT },
+        status:                 { type: Sequelize.SMALLINT, defaultValue: loanConstants.NEW },
 
     },
     associations: [

@@ -48,7 +48,7 @@ class AuthController {
     /**
      * @description Method for POST /auth/signPhone endpoint.
      *
-     * @param {String} body.phone_number User phone number
+     * @param {String} body.data.phone_number User phone number
      *
      * @throws {VALIDATION_ERROR} 400 if client provided unvalid request params
      * @returns {200<OK>} { status: Boolean }
@@ -81,8 +81,8 @@ class AuthController {
     /**
      * @description Method for POST /auth/signCode endpoint.
      *
-     * @param {String} body.phone_number User phone number
-     * @param {String} body.code User otp
+     * @param {String} body.data.phone_number User phone number
+     * @param {String} body.data.code User otp
      *
      * @throws {VALIDATION_ERROR} 400 if client provided unvalid request params
      * @throws {NotFoundError} 404 if User not found
@@ -135,8 +135,8 @@ class AuthController {
     /**
      * @description Method for POST /auth/refreshToken endpoint.
      *
-     * @param {String} body.phone_number User phone number
-     * @param {String} body.code User otp
+     * @param {String} body.data.phone_number User phone number
+     * @param {String} body.data.code User otp
      *
      * @throws {VALIDATION_ERROR} 400 if client provided unvalid request params
      * @throws {NotFoundError} 404 if Session not found

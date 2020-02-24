@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = {
-    model_name: 'FinePayments',
+    model_name: 'LoanFinePayments',
     model_props: {
 
         id:                     { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
