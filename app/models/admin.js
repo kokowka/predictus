@@ -12,8 +12,8 @@ module.exports = {
         reset_password_token:       { type: Sequelize.STRING, required: false },
         reset_password_expires_at:  { type: Sequelize.BIGINT, required: false },
         role:                       { type: Sequelize.STRING, required: false },
-        session_token:          { type: Sequelize.STRING, allowNull: false },
-        refresh_token:          { type: Sequelize.STRING, allowNull: false },
+        session_token:          { type: Sequelize.STRING },
+        refresh_token:          { type: Sequelize.STRING },
         status:                 { type: Sequelize.SMALLINT, allowNull: false, defaultValue: session_constants.status.ACTIVE },
         expires_at:             { type: Sequelize.BIGINT },
 
